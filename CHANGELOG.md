@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.2.6](https://github.com/videoq-jp/langchainjs-postgres/compare/v0.2.5...v0.2.6) (2026-11-19)
+
+
+### Bug Fixes
+
+* **ci:** pass integration base to merge queue security checks ([74f914c](https://github.com/videoq-jp/langchainjs-postgres/commit/74f914c27d7c79bb7f89291516f6ec84b98a618f))
+* **ci:** pass integration base to merge queue security checks ([68c684a](https://github.com/videoq-jp/langchainjs-postgres/commit/68c684ac03591c14bf05aefcf72413f35f3162d7))
+* **ci:** refresh verified release metadata against current main ([cc01214](https://github.com/videoq-jp/langchainjs-postgres/commit/cc012148cc74a04335feaf9bf17c326c2501253b))
+* **ci:** refresh verified release metadata against current main ([5b2be41](https://github.com/videoq-jp/langchainjs-postgres/commit/5b2be4156dadea033ff4ec2814b0e3adc15bef18))
+* **ci:** wait for pending release checks before queueing ([4d3cde5](https://github.com/videoq-jp/langchainjs-postgres/commit/4d3cde5133177c222c637c120361752bcc873ee7))
+* **ci:** wait for pending release checks before queueing ([c8edd61](https://github.com/videoq-jp/langchainjs-postgres/commit/c8edd612c623f393b3d419fa4a62b52255746fee))
+
 ## [0.2.5](https://github.com/videoq-jp/langchainjs-postgres/compare/v0.2.4...v0.2.5) (2026-11-09)
 
 
