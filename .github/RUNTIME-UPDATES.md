@@ -16,4 +16,4 @@ node --test .github/scripts/*.test.cjs
 
 `plan` は変更案を JSON に出力し、管理対象ファイルを変更しません。Node.js の配布情報は nodejs.org、npm は npm registry を参照します。npm のインストール前に、レビュー済み manifest の URL と SHA-512 を検証し、配布物を展開して利用します。ハッシュが一致しない配布物は実行しません。
 
-保守スクリプトは [shadcn-digital-agency-jp](https://github.com/yukiharada1228/shadcn-digital-agency-jp) の Node.js 実装を参考にしています。`upstream/langchain-postgres` は移植元を追跡する参照用サブモジュールで、Python の実行は不要です。
+保守スクリプトは [shadcn-digital-agency-jp](https://github.com/videoq-jp/shadcn-digital-agency-jp) の Node.js 実装を参考にしています。`upstream/langchain-postgres` は移植元を追跡する参照用サブモジュールで、Python の実行は不要です。

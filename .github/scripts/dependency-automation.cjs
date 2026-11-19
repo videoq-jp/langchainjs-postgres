@@ -1,6 +1,6 @@
 // Privileged workflows load this module from github.workflow_sha.
 // CI may test PR code with read-only permissions.
-const REPOSITORY = "yukiharada1228/langchainjs-postgres";
+const REPOSITORY = "videoq-jp/langchainjs-postgres";
 const BOT = "dependabot[bot]";
 const REQUEST_MARKER = "<!-- langchainjs-postgres-codex-repair-request -->";
 const manifests = new Set(["package.json", "package-lock.json"]);

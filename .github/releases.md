@@ -42,7 +42,7 @@ PRタイトルはConventional Commits形式にします。CIが形式を検証�
 
 - 既存の`PATCH_BOT_APP_ID`と`PATCH_BOT_PRIVATE_KEY`を使い、Appのトークンを実行ごとに発行します。
   通常のCIが自動起動するため、Bot PRのワークフロー承認は不要です。
-- npmのTrusted Publisherはリポジトリ`yukiharada1228/langchainjs-postgres`、
+- npmのTrusted Publisherはリポジトリ`videoq-jp/langchainjs-postgres`、
   ワークフロー`publish.yml`、Environment `npm`に限定します。
   Environmentのデプロイ対象はmainのみで、毎回の承認は要求しません。
 - npmの長期トークンやローカルのログイン情報をGitHub Secretsへ登録しません。
