@@ -1,6 +1,6 @@
 const { requireProtection } = require("./dependency-automation.cjs");
 
-const REPOSITORY = "yukiharada1228/langchainjs-postgres";
+const REPOSITORY = "videoq-jp/langchainjs-postgres";
 const PACKAGE = "@yukiharada1228/langchain-postgres";
 const RELEASE_BRANCH =
   "release-please--branches--main--components--langchain-postgres";

@@ -1,7 +1,7 @@
 # langchainjs-postgres
 
 [![npm version](https://img.shields.io/npm/v/%40yukiharada1228%2Flangchain-postgres.svg)](https://www.npmjs.com/package/@yukiharada1228/langchain-postgres)
-[![CI](https://github.com/yukiharada1228/langchainjs-postgres/actions/workflows/ci.yml/badge.svg)](https://github.com/yukiharada1228/langchainjs-postgres/actions/workflows/ci.yml)
+[![CI](https://github.com/videoq-jp/langchainjs-postgres/actions/workflows/ci.yml/badge.svg)](https://github.com/videoq-jp/langchainjs-postgres/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 An **unofficial** [LangChain.js](https://github.com/langchain-ai/langchainjs) port of

@@ -11,10 +11,10 @@
     "vectorstore",
     "embeddings"
   ],
-  "homepage": "https://github.com/yukiharada1228/langchainjs-postgres",
+  "homepage": "https://github.com/videoq-jp/langchainjs-postgres",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/yukiharada1228/langchainjs-postgres.git"
+    "url": "git+https://github.com/videoq-jp/langchainjs-postgres.git"
   },
   "license": "MIT",
   "author": "yukiharada1228",

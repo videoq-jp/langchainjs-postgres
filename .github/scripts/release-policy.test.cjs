@@ -24,7 +24,7 @@ const sha = "a".repeat(40);
 const next = "b".repeat(40);
 const bot = "release-app[bot]";
 const context = {
-  repo: { owner: "yukiharada1228", repo: "langchainjs-postgres" },
+  repo: { owner: "videoq-jp", repo: "langchainjs-postgres" },
   ref: "refs/heads/main",
   eventName: "workflow_dispatch",
   payload: {},

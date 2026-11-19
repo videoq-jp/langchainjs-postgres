@@ -4,7 +4,7 @@ const { readFileSync } = require("node:fs");
 const { join } = require("node:path");
 const policy = require("./dependency-automation.cjs");
 
-const REPOSITORY = "yukiharada1228/langchainjs-postgres";
+const REPOSITORY = "videoq-jp/langchainjs-postgres";
 const SHA = "a".repeat(40);
 function pull() {
   return {
@@ -148,7 +148,7 @@ function fixture() {
     mutations: [],
     latest: run,
     context: {
-      repo: { owner: "yukiharada1228", repo: "langchainjs-postgres" },
+      repo: { owner: "videoq-jp", repo: "langchainjs-postgres" },
       ref: "refs/heads/main",
       eventName: "workflow_run",
     },

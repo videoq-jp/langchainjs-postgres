@@ -14,7 +14,7 @@ concurrency:
 jobs:
   analyze:
     name: CodeQL (${{ matrix.language }})
-    if: github.repository == 'yukiharada1228/langchainjs-postgres'
+    if: github.repository == 'videoq-jp/langchainjs-postgres'
     runs-on: ubuntu-latest
     timeout-minutes: 30
     permissions:

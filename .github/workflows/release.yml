@@ -21,7 +21,7 @@ concurrency:
 jobs:
   release:
     if: >-
-      github.repository == 'yukiharada1228/langchainjs-postgres' &&
+      github.repository == 'videoq-jp/langchainjs-postgres' &&
       vars.RELEASE_AUTOMATION_ENABLED == 'true' &&
       (github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success')
     runs-on: ubuntu-latest
