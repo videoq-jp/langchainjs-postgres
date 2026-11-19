@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.7](https://github.com/videoq-jp/langchainjs-postgres/compare/v0.2.6...v0.2.7) (2026-11-19)
+
+
+### Bug Fixes
+
+* wait for release checks that have not started ([65e450a](https://github.com/videoq-jp/langchainjs-postgres/commit/65e450a5de2d7f6d71fffbdd9cf2ac849a7cce58))
+
 ## [0.2.6](https://github.com/videoq-jp/langchainjs-postgres/compare/v0.2.5...v0.2.6) (2026-11-19)
 
 
