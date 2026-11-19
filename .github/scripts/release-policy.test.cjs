@@ -87,6 +87,9 @@ function fixture() {
               ? [state.pr]
               : [],
         }),
+        updateBranch: async (args) => {
+          state.refresh = args;
+        },
         listFiles: async () => state.files,
         get: async () => ({ data: state.pr }),
       },
@@ -323,9 +326,11 @@ test("queue release refuses changed lockfile dependencies or incomplete branch p
 
 test("stale release PR is not merged and existing reservations are idempotent", async () => {
   const { github, state } = fixture();
-  state.pr.base.sha = next;
+  state.pr.base.sha = "c".repeat(40);
   await queueRelease({ github, context, bot });
   assert.equal(state.calls.length, 0);
+  assert.equal(state.refresh.expected_head_sha, next);
+  assert.equal(state.refresh.pull_number, 99);
   state.pr.base.sha = sha;
   state.pr.auto_merge = { enabled_by: bot };
   await queueRelease({ github, context, bot });
