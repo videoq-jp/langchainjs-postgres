@@ -187,14 +187,19 @@ async function queueRelease({ github, context, bot }) {
         "Release PR has unexpected authorship, files, or opt-out label; refusing automatic merge.",
       );
     const base = await mainHead(github, context);
-    if (pr.base.sha !== base) return;
-    const before = await jsonFile(github, context, "package.json", base);
+    const publishedBase = pr.base.sha;
+    const before = await jsonFile(
+      github,
+      context,
+      "package.json",
+      publishedBase,
+    );
     const after = await jsonFile(github, context, "package.json", pr.head.sha);
     const beforeLock = await jsonFile(
       github,
       context,
       "package-lock.json",
-      base,
+      publishedBase,
     );
     const afterLock = await jsonFile(
       github,
@@ -234,6 +239,16 @@ async function queueRelease({ github, context, bot }) {
       (await mainHead(github, context)) !== base
     )
       return;
+    if (publishedBase !== base) {
+      // Only the verified version-only release branch may follow trusted main.
+      // GitHub merges main and normal PR CI must run again before queueing.
+      await github.rest.pulls.updateBranch({
+        ...context.repo,
+        pull_number: pr.number,
+        expected_head_sha: current.head.sha,
+      });
+      return;
+    }
     await enqueue({ github, context, pr: current });
   }
 }
