@@ -1,4 +1,4 @@
-const { requireProtection } = require("./dependency-automation.cjs");
+const { requireProtection, enqueue } = require("./release-queue.cjs");
 
 const REPOSITORY = "videoq-jp/langchainjs-postgres";
 const PACKAGE = "@yukiharada1228/langchain-postgres";
@@ -223,11 +223,7 @@ async function queueRelease({ github, context, bot }) {
         "Release PR must only advance synchronized package versions and the changelog.",
       );
     }
-    const { data: protection } = await github.rest.repos.getBranchProtection({
-      ...context.repo,
-      branch: "main",
-    });
-    requireProtection(protection);
+    await requireProtection({ github, context });
     const { data: current } = await github.rest.pulls.get({
       ...context.repo,
       pull_number: pr.number,
@@ -238,12 +234,7 @@ async function queueRelease({ github, context, bot }) {
       (await mainHead(github, context)) !== base
     )
       return;
-    if (!current.auto_merge) {
-      await github.graphql(
-        "mutation($id: ID!) { enablePullRequestAutoMerge(input: {pullRequestId: $id, mergeMethod: SQUASH}) { clientMutationId } }",
-        { id: current.node_id },
-      );
-    }
+    await enqueue({ github, context, pr: current });
   }
 }
 

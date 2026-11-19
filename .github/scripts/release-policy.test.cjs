@@ -1,6 +1,6 @@
+const { Buffer: NodeBuffer } = require("node:buffer");
 const assert = require("node:assert/strict");
 const { test } = require("node:test");
-const { Buffer } = require("node:buffer");
 const { readFileSync } = require("node:fs");
 const {
   REPOSITORY,
@@ -114,7 +114,9 @@ function fixture() {
             data: {
               type: "file",
               encoding: "base64",
-              content: Buffer.from(JSON.stringify(value)).toString("base64"),
+              content: NodeBuffer.from(JSON.stringify(value)).toString(
+                "base64",
+              ),
             },
           };
         },
@@ -130,8 +132,9 @@ function fixture() {
         }),
         getBranchProtection: async () => ({
           data: {
+            enforce_admins: { enabled: true },
             required_status_checks: {
-              strict: true,
+              strict: false,
               checks: ["CI Success", "Supply Chain Security"].map((name) => ({
                 context: name,
                 app_id: 15368,
@@ -142,7 +145,27 @@ function fixture() {
       },
     },
     paginate: async (method, args) => method(args),
+    request: async () => ({
+      data: [
+        {
+          type: "merge_queue",
+          parameters: {
+            max_entries_to_build: 1,
+            max_entries_to_merge: 1,
+            merge_method: "MERGE",
+          },
+        },
+      ],
+    }),
     graphql: async (...args) => {
+      if (args[0].startsWith("query"))
+        return {
+          repository: {
+            pullRequest: {
+              mergeQueueEntry: state.pr.auto_merge ? { id: "entry" } : null,
+            },
+          },
+        };
       state.calls.push(args);
     },
   };
@@ -268,7 +291,7 @@ test("queue release only when package changes are synchronized version-only chan
   const { github, state } = fixture();
   await queueRelease({ github, context, bot });
   assert.equal(state.calls.length, 1);
-  assert.deepEqual(state.calls[0][1], { id: "PR_99" });
+  assert.deepEqual(state.calls[0][1], { id: "PR_99", sha: next });
   state.calls = [];
   state.mutateFile = (value, path, ref) => {
     if (path === "package.json" && ref === next)
@@ -293,7 +316,7 @@ test("queue release refuses changed lockfile dependencies or incomplete branch p
   });
   await assert.rejects(
     queueRelease({ github, context, bot }),
-    /strict branch protection/,
+    /Native automation requires/,
   );
   assert.equal(state.calls.length, 0);
 });

@@ -66,3 +66,5 @@ Actionsの失敗として残り、保護を無効化せずに停止します。�
 参考: [Release Please](https://github.com/googleapis/release-please)、
 [npm Trusted Publishing](https://docs.npmjs.com/trusted-publishers/)、
 [GitHubの自動実行とトークン](https://docs.github.com/en/actions/how-tos/write-workflows/choose-when-workflows-run/trigger-a-workflow)。
+
+リリース PR も GitHub Merge Queue へ現在の head SHA を指定して投入します。必須 CI は `merge_group` でも実行し、GitHub が最新 main との統合を検証してからマージします。直接マージは行いません。GitHub App は `videoq-dependency-bot` を使用します。

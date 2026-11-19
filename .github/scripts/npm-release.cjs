@@ -1,8 +1,8 @@
+const nodeProcess = require("node:process");
 const { execFileSync } = require("node:child_process");
 const { createHash } = require("node:crypto");
 const { mkdirSync, readFileSync, renameSync } = require("node:fs");
 const { resolve } = require("node:path");
-const process = require("node:process");
 const { setTimeout: delay } = require("node:timers/promises");
 const {
   PACKAGE,
@@ -83,7 +83,7 @@ async function publish(version) {
   const existing = await registryVersion(version);
   if (existing) {
     verifyIntegrity(existing, integrity);
-    process.stdout.write(`Already published: ${PACKAGE}@${version}\n`);
+    nodeProcess.stdout.write(`Already published: ${PACKAGE}@${version}\n`);
     return;
   }
   if (compareVersions(await latestVersion(), version) >= 0)
@@ -102,7 +102,7 @@ async function publish(version) {
     ],
     { stdio: "inherit" },
   );
-  // Registry publication is asynchronous. Never retry an npm publish in this process.
+  // Registry publication is asynchronous. Never retry an npm publish in this nodeProcess.
   for (let attempt = 0; attempt < 40; attempt++) {
     const published = await registryVersion(version);
     if (published) {
@@ -111,7 +111,9 @@ async function publish(version) {
         throw new Error(
           "Published bytes match but npm latest has not converged; inspect before changing tags.",
         );
-      process.stdout.write(`Verified ${PACKAGE}@${version}: ${integrity}\n`);
+      nodeProcess.stdout.write(
+        `Verified ${PACKAGE}@${version}: ${integrity}\n`,
+      );
       return;
     }
     await delay(15000);
@@ -122,8 +124,8 @@ async function publish(version) {
 }
 
 if (require.main === module) {
-  const command = process.argv[2];
-  const version = process.env.RELEASE_VERSION;
+  const command = nodeProcess.argv[2];
+  const version = nodeProcess.env.RELEASE_VERSION;
   Promise.resolve()
     .then(() => {
       if (command === "pack") return pack(version);
@@ -131,8 +133,8 @@ if (require.main === module) {
       throw new Error("Expected pack or publish.");
     })
     .catch((error) => {
-      process.stderr.write(`${error.stack}\n`);
-      process.exitCode = 1;
+      nodeProcess.stderr.write(`${error.stack}\n`);
+      nodeProcess.exitCode = 1;
     });
 }
 

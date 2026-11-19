@@ -1,4 +1,4 @@
-const { Buffer } = require("node:buffer");
+const { Buffer: NodeBuffer } = require("node:buffer");
 const { test } = require("node:test");
 const assert = require("node:assert/strict");
 const fs = require("node:fs");
@@ -64,7 +64,7 @@ test("manifest rejects unsupported runtimes and generates only project pins", ()
   }
 });
 test("npm bootstrap checks hashes before use and rejects failed/oversized downloads", async () => {
-  const body = Buffer.from("reviewed archive");
+  const body = NodeBuffer.from("reviewed archive");
   const pin = {
     url: "https://registry.npmjs.org/npm/test.tgz",
     integrity: "sha512-" + createHash("sha512").update(body).digest("base64"),
@@ -87,7 +87,7 @@ test("npm bootstrap checks hashes before use and rejects failed/oversized downlo
   const response = {
     ok: true,
     body: (async function* () {
-      yield Buffer.alloc(64 * 1024 * 1024 + 1);
+      yield NodeBuffer.alloc(64 * 1024 * 1024 + 1);
     })(),
   };
   await assert.rejects(
@@ -149,7 +149,7 @@ test("workflows execute Node scripts and configure only Node.js and npm runtimes
       path.join(__dirname, "../workflows/runtime-updates.yml"),
       "utf8",
     ),
-    /runtime: \[node, npm\]/,
+    /options: \[all, node, npm\]/,
   );
   assert.ok(!fs.existsSync(path.join(__dirname, "../../.python-version")));
 });

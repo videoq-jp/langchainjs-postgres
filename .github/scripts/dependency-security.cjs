@@ -1,4 +1,4 @@
-const process = require("node:process");
+const nodeProcess = require("node:process");
 const fs = require("node:fs");
 const { setTimeout: delay } = require("node:timers/promises");
 const { scan, queryOsv, lockedPackages } = require("./supply-chain.cjs");
@@ -28,6 +28,6 @@ async function main() {
 if (require.main === module)
   main().catch((error) => {
     console.error(error.message);
-    process.exitCode = 1;
+    nodeProcess.exitCode = 1;
   });
 module.exports = { scan, queryWithRetry };
