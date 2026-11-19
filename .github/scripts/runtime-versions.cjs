@@ -1,4 +1,4 @@
-const process = require("node:process");
+const nodeProcess = require("node:process");
 // The manifest is authoritative; discovery produces a reviewable plan only.
 const fs = require("node:fs");
 const path = require("node:path");
@@ -99,13 +99,14 @@ async function discover(data, runtime, upgrade, query = request) {
   return next;
 }
 async function main() {
-  const args = process.argv.slice(2),
+  const args = nodeProcess.argv.slice(2),
     command = args[0];
   if (!["check", "sync", "plan"].includes(command))
     throw Error("Expected check, sync or plan");
   const option = (name) =>
     args.includes(name) ? args[args.indexOf(name) + 1] : undefined;
   let data = JSON.parse(fs.readFileSync(path.join(ROOT, MANIFEST), "utf8"));
+  const previous = structuredClone(data);
   const runtime = option("--runtime"),
     output = option("--output");
   if (command === "plan") {
@@ -149,11 +150,15 @@ async function main() {
       runtime,
       channel: args.includes("--upgrade") ? "next" : "current",
       version: data[runtime],
+      previous_version: previous[runtime],
       files: changed,
     };
     fs.writeFileSync(output, `${JSON.stringify(plan, null, 2)}\n`);
-    if (process.env.GITHUB_OUTPUT)
-      fs.appendFileSync(process.env.GITHUB_OUTPUT, `changed=${plan.changed}\n`);
+    if (nodeProcess.env.GITHUB_OUTPUT)
+      fs.appendFileSync(
+        nodeProcess.env.GITHUB_OUTPUT,
+        `changed=${plan.changed}\n`,
+      );
     console.log(
       `${runtime} ${plan.version}: ${Object.keys(changed).length} proposed file changes`,
     );
@@ -162,6 +167,6 @@ async function main() {
 if (require.main === module)
   main().catch((error) => {
     console.error(error.message);
-    process.exitCode = 1;
+    nodeProcess.exitCode = 1;
   });
 module.exports = { version, latest, validate, rendered, discover };

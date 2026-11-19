@@ -1,5 +1,5 @@
-const { Buffer } = require("node:buffer");
-const process = require("node:process");
+const nodeProcess = require("node:process");
+const { Buffer: NodeBuffer } = require("node:buffer");
 // Inspect lockfiles as data without installing the packages being checked.
 const fs = require("node:fs");
 const { execFileSync, spawnSync } = require("node:child_process");
@@ -55,7 +55,7 @@ function npmPackages(lock, allowedScripts) {
     );
     if (
       !match ||
-      Buffer.from(match[2], "base64").length !==
+      NodeBuffer.from(match[2], "base64").length !==
         (match[1] === "sha512" ? 64 : 20)
     )
       throw Error(`Invalid integrity: ${location}`);
@@ -153,7 +153,7 @@ function lockedPackages() {
   return [...packages.keys()].sort().map((key) => JSON.parse(key));
 }
 async function main() {
-  const args = process.argv.slice(2);
+  const args = nodeProcess.argv.slice(2);
   const base = args[args.indexOf("--base") + 1];
   if (!args.includes("--base")) throw Error("--base is required");
   const policy = JSON.parse(
@@ -189,7 +189,7 @@ async function main() {
 if (require.main === module)
   main().catch((error) => {
     console.error(error.message);
-    process.exitCode = 1;
+    nodeProcess.exitCode = 1;
   });
 module.exports = {
   npmPackages,
