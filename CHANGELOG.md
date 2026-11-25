@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.3.0](https://github.com/videoq-jp/langchainjs-postgres/compare/v0.2.8...v0.3.0) (2026-11-25)
+
+
+### ⚠ BREAKING CHANGES
+
+* publish package as @videoq-jp/langchainjs-postgres
+
+### Build and Packaging
+
+* publish package as @videoq-jp/langchainjs-postgres ([aca8f7e](https://github.com/videoq-jp/langchainjs-postgres/commit/aca8f7e441d4342a28ab87a231656f262fe7aa77))
+
 ## [0.2.8](https://github.com/videoq-jp/langchainjs-postgres/compare/v0.2.7...v0.2.8) (2026-11-23)
 
 
