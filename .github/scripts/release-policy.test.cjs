@@ -48,7 +48,7 @@ const pr = {
   user: { login: bot, type: "Bot" },
   head: {
     sha: next,
-    ref: "release-please--branches--main--components--langchain-postgres",
+    ref: "release-please--branches--main--components--langchainjs-postgres",
     repo: { full_name: REPOSITORY },
   },
   base: { sha, ref: "main", repo: { full_name: REPOSITORY } },

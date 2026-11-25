@@ -2,7 +2,7 @@ import {
   PGEngine,
   PGVectorStore,
   PostgresChatMessageHistory,
-} from "@yukiharada1228/langchain-postgres";
+} from "@videoq-jp/langchainjs-postgres";
 import type { EmbeddingsInterface } from "@langchain/core/embeddings";
 
 const engine = PGEngine.fromConnectionString("postgres://localhost/example");

@@ -1,6 +1,6 @@
 # langchainjs-postgres
 
-[![npm version](https://img.shields.io/npm/v/%40yukiharada1228%2Flangchain-postgres.svg)](https://www.npmjs.com/package/@yukiharada1228/langchain-postgres)
+[![npm version](https://img.shields.io/npm/v/%40videoq-jp%2Flangchainjs-postgres.svg)](https://www.npmjs.com/package/@videoq-jp/langchainjs-postgres)
 [![CI](https://github.com/videoq-jp/langchainjs-postgres/actions/workflows/ci.yml/badge.svg)](https://github.com/videoq-jp/langchainjs-postgres/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
@@ -28,11 +28,11 @@ or modify / extend them as appropriate for your own application.
 
 You can use npm, pnpm, or yarn to install `langchainjs-postgres`:
 
-`npm install @yukiharada1228/langchain-postgres @langchain/core pg langsmith@0.10.9`
+`npm install @videoq-jp/langchainjs-postgres @langchain/core pg langsmith@0.10.9`
 
-`pnpm add @yukiharada1228/langchain-postgres @langchain/core pg langsmith@0.10.9`
+`pnpm add @videoq-jp/langchainjs-postgres @langchain/core pg langsmith@0.10.9`
 
-`yarn add @yukiharada1228/langchain-postgres @langchain/core pg langsmith@0.10.9`
+`yarn add @videoq-jp/langchainjs-postgres @langchain/core pg langsmith@0.10.9`
 
 Both ESM (`import`) and CommonJS (`require`) are supported, including their respective
 TypeScript declarations with `Node16` and `NodeNext` module resolution.
@@ -67,7 +67,7 @@ or set `skipLibCheck: true` with `Node16`; consumer imports are checked in both 
 ### Example
 
 ```typescript
-import { PGEngine, PGVectorStore } from "@yukiharada1228/langchain-postgres";
+import { PGEngine, PGVectorStore } from "@videoq-jp/langchainjs-postgres";
 import { OpenAIEmbeddings } from "@langchain/openai";
 import { Document } from "@langchain/core/documents";
 
@@ -133,7 +133,7 @@ comprehensive and relevant search results.
 import {
   HybridSearchConfig,
   reciprocalRankFusion,
-} from "@yukiharada1228/langchain-postgres";
+} from "@videoq-jp/langchainjs-postgres";
 
 const vectorStore = await PGVectorStore.initialize(
   engine,
@@ -153,7 +153,7 @@ const hybridDocs = await vectorStore.similaritySearch("products", 5);
 ### Vector indexes
 
 ```typescript
-import { HNSWIndex } from "@yukiharada1228/langchain-postgres";
+import { HNSWIndex } from "@videoq-jp/langchainjs-postgres";
 
 await vectorStore.applyVectorIndex(
   new HNSWIndex({ m: 16, efConstruction: 64 }),
@@ -170,7 +170,7 @@ for ranking and scoring.
 The SQL embedding function must already be available in your database. For example:
 
 ```typescript
-import type { PGVectorStoreEmbeddings } from "@yukiharada1228/langchain-postgres";
+import type { PGVectorStoreEmbeddings } from "@videoq-jp/langchainjs-postgres";
 
 const dbEmbeddings: PGVectorStoreEmbeddings = {
   embedDocuments: (texts) => embeddings.embedDocuments(texts),
@@ -201,7 +201,7 @@ continue to work. These camelCase hook names correspond to upstream's
 For parity with the original `langchain_pg_collection` / `langchain_pg_embedding` schema:
 
 ```typescript
-import { PGVector } from "@yukiharada1228/langchain-postgres";
+import { PGVector } from "@videoq-jp/langchainjs-postgres";
 
 const store = await PGVector.initialize(engine, embeddings, {
   collectionName: "my-collection",
@@ -225,7 +225,7 @@ using `crypto.randomUUID()`.
 
 ```typescript
 import { Pool } from "pg";
-import { PostgresChatMessageHistory } from "@yukiharada1228/langchain-postgres";
+import { PostgresChatMessageHistory } from "@videoq-jp/langchainjs-postgres";
 
 const pool = new Pool({ connectionString: process.env.DATABASE_URL });
 
@@ -328,3 +328,7 @@ summarizing what moved. You can also run the check manually:
 git submodule update --init --recursive
 npm run diff:upstream
 ```
+
+## Package scope migration
+
+The package name is now `@videoq-jp/langchainjs-postgres`. Replace previous `@yukiharada1228/langchain-postgres` dependencies and imports with the new name. The source remains in `videoq-jp/langchainjs-postgres`.
