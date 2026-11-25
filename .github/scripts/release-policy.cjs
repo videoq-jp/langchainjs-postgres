@@ -1,9 +1,9 @@
 const { requireProtection, enqueue } = require("./release-queue.cjs");
 
 const REPOSITORY = "videoq-jp/langchainjs-postgres";
-const PACKAGE = "@yukiharada1228/langchain-postgres";
+const PACKAGE = "@videoq-jp/langchainjs-postgres";
 const RELEASE_BRANCH =
-  "release-please--branches--main--components--langchain-postgres";
+  "release-please--branches--main--components--langchainjs-postgres";
 const VERSION = /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$/;
 const REQUIRED_JOBS = [
   "test",

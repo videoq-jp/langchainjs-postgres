@@ -9,8 +9,8 @@ const mode = process.argv[2] ?? "esm";
 assert.ok(["esm", "cjs"].includes(mode), "Expected esm or cjs");
 const lib =
   mode === "cjs"
-    ? require("@yukiharada1228/langchain-postgres")
-    : await import("@yukiharada1228/langchain-postgres");
+    ? require("@videoq-jp/langchainjs-postgres")
+    : await import("@videoq-jp/langchainjs-postgres");
 const {
   PGEngine,
   PGVectorStore,

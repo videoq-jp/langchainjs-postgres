@@ -1,5 +1,5 @@
 {
-  "name": "@yukiharada1228/langchain-postgres",
+  "name": "@videoq-jp/langchainjs-postgres",
   "version": "0.2.8",
   "description": "Unofficial LangChain.js port of langchain-postgres (Postgres/pgvector integrations for LangChain).",
   "keywords": [
@@ -82,5 +82,8 @@
   "packageManager": "npm@12.2.3",
   "overrides": {
     "minimatch": "^11.0.1"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
