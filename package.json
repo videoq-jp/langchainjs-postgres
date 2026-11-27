@@ -1,6 +1,6 @@
 {
   "name": "@videoq-jp/langchainjs-postgres",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Unofficial LangChain.js port of langchain-postgres (Postgres/pgvector integrations for LangChain).",
   "keywords": [
     "langchain",
