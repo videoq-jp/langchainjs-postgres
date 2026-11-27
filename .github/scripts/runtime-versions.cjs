@@ -66,7 +66,23 @@ async function request(url, headers = {}) {
   if (!response.ok) throw Error("Runtime release discovery failed");
   return response.json();
 }
-async function discover(data, runtime, upgrade, query = request) {
+function declaredTools(root = ROOT) {
+  const manifest = JSON.parse(
+    fs.readFileSync(
+      path.join(root, ".github/runtime-tools/package.json"),
+      "utf8",
+    ),
+  );
+  version(manifest.dependencies?.npm);
+  return { npm: manifest.dependencies.npm };
+}
+async function discover(
+  data,
+  runtime,
+  upgrade,
+  query = request,
+  toolVersions = declaredTools(),
+) {
   if (!["node", "npm"].includes(runtime)) throw Error("Unsupported runtime");
   const next = structuredClone(data);
   if (runtime === "node")
@@ -77,21 +93,19 @@ async function discover(data, runtime, upgrade, query = request) {
       await query("https://nodejs.org/dist/index.json"),
     );
   else {
-    const { versions } = await query("https://registry.npmjs.org/npm", {
-      Accept: "application/vnd.npm.install-v1+json",
-    });
-    next.npm = latest(
-      data.npm,
-      runtime,
-      upgrade,
-      Object.keys(versions).map((version) => ({ version })),
-    );
-    if (!upgrade || next.npm !== data.npm) {
-      const dist = versions[next.npm]?.dist;
-      if (!dist) throw Error("Missing npm release metadata");
+    // Dependabot selects the version; this workflow only verifies and renders it.
+    const candidate = toolVersions.npm;
+    version(candidate);
+    next.npm = latest(data.npm, runtime, upgrade, [{ version: candidate }]);
+    if (next.npm !== data.npm) {
+      const metadata = await query(
+        `https://registry.npmjs.org/npm/${next.npm}`,
+      );
+      if (metadata.version !== next.npm || !metadata.dist)
+        throw Error("Missing or mismatched npm release metadata");
       next.tool_downloads.npm = {
-        url: dist.tarball,
-        integrity: dist.integrity,
+        url: metadata.dist.tarball,
+        integrity: metadata.dist.integrity,
       };
     }
   }
@@ -126,6 +140,7 @@ async function main() {
     ),
   );
   if (command === "check") {
+    declaredTools();
     if (Object.keys(changed).length)
       throw Error(
         `Runtime pins differ from the manifest: ${Object.keys(changed).join(", ")}; run node .github/scripts/runtime-versions.cjs sync`,
@@ -169,4 +184,11 @@ if (require.main === module)
     console.error(error.message);
     nodeProcess.exitCode = 1;
   });
-module.exports = { version, latest, validate, rendered, discover };
+module.exports = {
+  version,
+  latest,
+  validate,
+  rendered,
+  discover,
+  declaredTools,
+};
