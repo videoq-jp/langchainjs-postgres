@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.3.1](https://github.com/videoq-jp/langchainjs-postgres/compare/v0.3.0...v0.3.1) (2026-11-27)
+
+
+### Dependencies
+
+* **deps:** bump the github-actions group with 3 updates ([6bacbcb](https://github.com/videoq-jp/langchainjs-postgres/commit/6bacbcb2752beebb2fe42e1e0bb9fbd3b457eb97))
+* **deps:** bump the github-actions group with 3 updates ([1d88b34](https://github.com/videoq-jp/langchainjs-postgres/commit/1d88b343d62a643aaa34db51713778fa71550054))
+
 ## [0.3.0](https://github.com/videoq-jp/langchainjs-postgres/compare/v0.2.8...v0.3.0) (2026-11-25)
 
 
